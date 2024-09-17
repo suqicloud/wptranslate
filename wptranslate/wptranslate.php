@@ -231,7 +231,7 @@ function wp_translate_plugin_render_buttons() {
 function wp_translate_plugin_add_to_menu($items, $args) {
     $position = get_option('wp_translate_plugin_position', 'top');
     if ($position === 'menu') {
-        $items .= '<li class="ignore"><a href="#" id="translate-menu-button">Language</a></li>';
+        $items .= '<li class="ignore"><a href="#" id="translate-menu-button">&#x1F310;Language</a></li>';
         $items .= '<div id="translate-menu-options" style="display:none; background-color:rgba(119, 119, 119, 0.8); padding:10px; border-radius:5px; position: fixed; z-index: 999; max-width: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%);">';
         $items .= '<div style="display: flex; flex-wrap: wrap; justify-content: center;">';
         $items .= '<ul style="list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; justify-content:center;">';
@@ -283,7 +283,7 @@ class WP_Translate_Plugin_Widget extends WP_Widget {
         
         if ($position === 'widget') {
             echo $args['before_widget'];
-            echo '<a href="#" id="translate-widget-button" class="ignore">Language</a>';
+            echo '<a href="#" id="translate-widget-button" class="ignore">&#x1F310;Language</a>';
             echo '<div id="translate-widget-options" style="display:none; background-color:rgba(119, 119, 119, 0.8); padding:10px; border-radius:5px; position: fixed; z-index: 999; max-width: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%);">';
             echo '<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">';
             echo wp_translate_plugin_render_buttons();
