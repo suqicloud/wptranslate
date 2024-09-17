@@ -168,6 +168,7 @@ function wp_translate_plugin_enqueue_scripts() {
             translate.setAutoDiscriminateLocalLanguage();
             translate.selectLanguageTag.show = false;
             translate.service.use("client.edge");
+            translate.language.clearCacheLanguage();
             translate.execute();
         });'
     );
