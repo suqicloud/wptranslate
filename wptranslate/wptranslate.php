@@ -187,13 +187,13 @@ function wp_translate_plugin_position_render() {
     <?php
 }
 
-// 在前端加载翻译按钮（头部部分）
+// 在前端头部加载翻译按钮
 function wp_translate_plugin_add_translate_buttons_top() {
     $position = get_option('wp_translate_plugin_position', 'top');
 
     // 将按钮放在顶部
     if ($position === 'top') {
-        echo '<div id="translate-button-top" style="top: 0; left: 0; right: 0; text-align: center; padding: 5px; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">';
+        echo '<div id="translate-button-top" style="text-align: center; padding: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">';
         echo '<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">';
         echo wp_translate_plugin_render_buttons();
         echo '</div></div>';
@@ -201,13 +201,13 @@ function wp_translate_plugin_add_translate_buttons_top() {
 }
 add_action('wp_head', 'wp_translate_plugin_add_translate_buttons_top');
 
-// 在前端加载翻译按钮（底部部分）
+// 在前端底部加载翻译按钮
 function wp_translate_plugin_add_translate_buttons_bottom() {
     $position = get_option('wp_translate_plugin_position', 'bottom');
 
     // 将按钮放在底部
     if ($position === 'bottom') {
-        echo '<div id="translate-button-bottom" style="bottom: 0; left: 0; right: 0; background-color: #f1f1f1; text-align: center; padding: 5px; z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);">';
+        echo '<div id="translate-button-bottom" style="background-color: #f1f1f1; text-align: center; padding: 5px; z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);">';
         echo '<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">';
         echo wp_translate_plugin_render_buttons();
         echo '</div></div>';
