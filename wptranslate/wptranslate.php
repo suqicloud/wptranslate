@@ -3,7 +3,7 @@
  * Plugin Name: 小半网页翻译
  * Description: 基于translate.js的WordPress在线翻译插件，支持顶部、底部、菜单和小工具位置显示，支持自定义添加翻译语言。
  * Plugin URI: https://www.jingxialai.com/4865.html
- * Version: 1.1
+ * Version: 1.2
  * Author: Summer
  * License: GPL License
  * Author URI: https://www.jingxialai.com/
@@ -187,23 +187,48 @@ function wp_translate_plugin_position_render() {
     <?php
 }
 
-// 在前端加载翻译按钮
-function wp_translate_plugin_add_translate_buttons() {
+// 在前端加载翻译按钮（头部部分）
+function wp_translate_plugin_add_translate_buttons_top() {
     $position = get_option('wp_translate_plugin_position', 'top');
 
+    // 将按钮放在顶部
     if ($position === 'top') {
-        echo '<div id="translate-button-top" style="position: absolute; top: 0; left: 0; right: 0; width: 100%; background-color: #f1f1f1; text-align: center; padding: 10px; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">';
-        echo '<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">';
-        echo wp_translate_plugin_render_buttons();
-        echo '</div></div>';
-    } elseif ($position === 'bottom') {
-        echo '<div id="translate-button-bottom" style="position: absolute; bottom: 0; left: 0; right: 0; width: 100%; background-color: #f1f1f1; text-align: center; padding: 10px; z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);">';
+        echo '<div id="translate-button-top" style="top: 0; left: 0; right: 0; text-align: center; padding: 5px; z-index: 999; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">';
         echo '<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">';
         echo wp_translate_plugin_render_buttons();
         echo '</div></div>';
     }
 }
-add_action('wp_footer', 'wp_translate_plugin_add_translate_buttons');
+add_action('wp_head', 'wp_translate_plugin_add_translate_buttons_top');
+
+// 在前端加载翻译按钮（底部部分）
+function wp_translate_plugin_add_translate_buttons_bottom() {
+    $position = get_option('wp_translate_plugin_position', 'bottom');
+
+    // 将按钮放在底部
+    if ($position === 'bottom') {
+        echo '<div id="translate-button-bottom" style="bottom: 0; left: 0; right: 0; background-color: #f1f1f1; text-align: center; padding: 5px; z-index: 999; box-shadow: 0 -2px 5px rgba(0,0,0,0.1);">';
+        echo '<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">';
+        echo wp_translate_plugin_render_buttons();
+        echo '</div></div>';
+    }
+}
+add_action('wp_footer', 'wp_translate_plugin_add_translate_buttons_bottom');
+
+// 插入到头部或底部
+function wp_translate_plugin_insert_into_header_or_footer() {
+    $position = get_option('wp_translate_plugin_position', 'top');
+
+    // 根据用户选择位置插入按钮
+    if ($position === 'top') {
+        add_action('wp_head', 'wp_translate_plugin_add_translate_buttons_top');
+    } elseif ($position === 'bottom') {
+        add_action('wp_footer', 'wp_translate_plugin_add_translate_buttons_bottom');
+    }
+}
+add_action('init', 'wp_translate_plugin_insert_into_header_or_footer');
+
+
 
 // 翻译语言切换按钮
 function wp_translate_plugin_render_buttons() {
@@ -217,7 +242,7 @@ function wp_translate_plugin_render_buttons() {
         $icon_html = $icon ? '<img src="' . $icon . '" alt="' . $name . '" style="width:20px; height:20px; border-radius:50%; vertical-align:middle; margin-right:5px;" class="ignore" />' : '';
 
         $buttons .= '<li style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
-            <a href="javascript:translate.changeLanguage(\'' . $code . '\');" style="display: flex; align-items: center; padding:5px 10px; background-color:#0073aa; color:white; border-radius:5px; text-decoration: none;" class="ignore">
+            <a href="javascript:translate.changeLanguage(\'' . $code . '\');" style="display: flex; align-items: center; padding:1px 5px; background-color:#0073aa; color:white; border-radius:5px; text-decoration: none;" class="ignore">
                 ' . $icon_html . ' ' . $name . '
             </a>
         </li>';
@@ -254,15 +279,7 @@ function wp_translate_plugin_add_to_menu($items, $args) {
 
 add_filter('wp_nav_menu_items', 'wp_translate_plugin_add_to_menu', 10, 2);
 
-// 插入到头部或底部
-function wp_translate_plugin_insert_into_header_or_footer() {
-    $position = get_option('wp_translate_plugin_position', 'top');
 
-    if ($position === 'top' || $position === 'bottom') {
-        add_action('wp_footer', 'wp_translate_plugin_add_translate_buttons');
-    }
-}
-add_action('init', 'wp_translate_plugin_insert_into_header_or_footer');
 
 
 // 小工具翻译按钮
