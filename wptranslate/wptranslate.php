@@ -62,7 +62,7 @@ function wp_translate_plugin_settings_page() {
                 1、是基于translate.js实现的前端翻译，用的client.edge方式，默认会根据用户客户端ip自动显示对应语言(有设置的前提下).<br>
                 2、具体的翻译语言简码到官方查看: https://translate.zvo.cn/43086.html<br>
                 3、这是机翻，稳定性、翻译速度、准确性都是根据client.edge（由微软直接提供翻译支持）来的.<br>
-                4、翻译语言的图标可以不填写，显示到小工具之后，还需要在小工具去添加位置.<br>
+                4、翻译语言的图标可以不填写，显示到小工具之后，还需要在小工具去添加位置，设置为菜单的时候，只支持一个菜单，多个菜单会冲突.<br>
                 5、默认改为本地调用translate.js文件，没有用官方的staticfile，可以自己把translate.js上传到对象存储加权限，改为远程调用.<br>
                 6、<span style="color: #ff0000;">翻译按钮显示错乱或者按钮无反应，是因为和你的主题不兼容，最完美的兼容是联系你的主题作者内置.</span><br>
                 7、<span style="color: #009900;">本插件介绍页面: <a target="_blank" href="https://www.jingxialai.com/4865.html">www.jingxialai.com</a></span><br>
